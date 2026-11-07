@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: sans-serif;
+}
+
+.game {
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+}
+
+.game p {
+  margin: 4px 0;
+}

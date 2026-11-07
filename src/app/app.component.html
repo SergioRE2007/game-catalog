@@ -1,0 +1,82 @@
+<h1>GAME CATALOG</h1>
+
+<section>
+  <h2>Buscar videojuego por ID</h2>
+  <input #idInput type="number" placeholder="Id" />
+  <button (click)="searchById(idInput.value)">Buscar</button>
+
+  @if (foundGame) {
+    <div class="game">
+      <strong>{{ foundGame.title }}</strong>
+      <p>{{ foundGame.genre }} · {{ foundGame.platform }}</p>
+      <p>{{ foundGame.price }} €</p>
+    </div>
+  }
+  @if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+  }
+</section>
+
+<section>
+  <h2>Filtros</h2>
+
+  <p>
+    Buscar título:
+    <input #titleInput type="text" />
+    <button (click)="searchGames(titleInput.value)">Buscar</button>
+  </p>
+
+  <p>
+    Género:
+    <select #genreSelect (change)="onGenreChange(genreSelect.value)">
+      <option value="">Todos</option>
+      <option value="Action">Action</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Platform">Platform</option>
+      <option value="RPG">RPG</option>
+      <option value="Racing">Racing</option>
+      <option value="Simulation">Simulation</option>
+      <option value="Sports">Sports</option>
+      <option value="Strategy">Strategy</option>
+    </select>
+  </p>
+
+  <p>
+    Plataforma:
+    <select #platformSelect (change)="onPlatformChange(platformSelect.value)">
+      <option value="">Todas</option>
+      <option value="PC">PC</option>
+      <option value="PlayStation">PlayStation</option>
+      <option value="Xbox">Xbox</option>
+      <option value="Switch">Switch</option>
+    </select>
+  </p>
+
+  <p>
+    Precio:
+    <input #minInput type="number" placeholder="mínimo" />
+    -
+    <input #maxInput type="number" placeholder="máximo" />
+    <button (click)="filterByPrice(minInput.value, maxInput.value)">Filtrar</button>
+  </p>
+</section>
+
+<section>
+  @for (game of games; track game.id) {
+    <div class="game">
+      <strong>{{ game.title }}</strong>
+      <p>{{ game.genre }} · {{ game.platform }}</p>
+      <p>{{ game.price }} €</p>
+    </div>
+  } @empty {
+    <p>No hay videojuegos.</p>
+  }
+</section>
+
+<section>
+  <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+  <span>Página {{ currentPage }} de {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages">Siguiente</button>
+
+  <p>Registros encontrados: {{ totalItems }}</p>
+</section>
